@@ -270,3 +270,26 @@ html.js [data-reveal].is-visible {
 [dir='rtl'] .hero-notch-corner {
   background: radial-gradient(circle at 100% 100%, transparent calc(var(--notch-r, 34px) - 0.5px), var(--color-canvas) var(--notch-r, 34px));
 }
+
+/* Menu drawer slides in from the reading-start edge (right in RTL, left in LTR). */
+@keyframes drawer-in {
+  from {
+    transform: translateX(var(--drawer-from, -100%));
+  }
+}
+[dir='rtl'] {
+  --drawer-from: 100%;
+}
+dialog[open] .drawer-panel {
+  animation: drawer-in 380ms var(--ease-soft);
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog[open] .drawer-panel {
+    animation: none;
+  }
+}
+
+/* Pointy-top hexagon used by the academic-calendar timeline nodes. */
+.hexagon {
+  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+}

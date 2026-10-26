@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Metadata } from 'next';
 import { AnnouncementItem } from '@/components/content/AnnouncementItem';
-import { CalendarItem } from '@/components/content/CalendarItem';
+import { CalendarTimeline } from '@/components/content/CalendarTimeline';
 import { LinkCard } from '@/components/content/LinkCard';
 import { NewsCard } from '@/components/content/NewsCard';
 import { AdmissionsBanner } from '@/components/home/AdmissionsBanner';
@@ -46,7 +46,10 @@ export default async function HomePage({ params }: Props) {
 
   const featuredNews = sortedNews.slice(0, 4);
   const notices = sortedAnnouncements.slice(0, 6);
-  const calendarPreview = calendarEvents.slice(0, 6);
+  // The first term that has not finished yet (evaluated when the page is built).
+  const today = new Date().toISOString().slice(0, 10);
+  const currentTerm = (calendarEvents.find((e) => (e.end ?? e.start) >= today) ?? calendarEvents[0]).term;
+  const termEvents = calendarEvents.filter((e) => e.term.en === currentTerm.en);
   const galleryImages = galleries
     .flatMap((g) => g.images.slice(0, 2))
     .slice(0, 7);
@@ -124,11 +127,8 @@ export default async function HomePage({ params }: Props) {
             link={{ href: lp('/calendar'), label: dict.home.calendarAll }}
             aside={<ProvenanceBadge provenance="sample" locale={locale} />}
           />
-          <ol data-reveal className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {calendarPreview.map((event) => (
-              <CalendarItem key={event.id} event={event} locale={locale} compact />
-            ))}
-          </ol>
+          <p className="mb-6 text-center font-bold text-brand lg:-mb-6">{currentTerm[locale]}</p>
+          <CalendarTimeline events={termEvents} locale={locale} label={`${dict.home.calendarTitle} — ${currentTerm[locale]}`} />
         </div>
       </section>
 

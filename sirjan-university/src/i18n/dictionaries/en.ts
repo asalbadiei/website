@@ -74,6 +74,7 @@ const en: Dictionary = {
     status: 'Status',
   },
   nav: {
+    submenu: 'Submenu: {name}',
     systems: 'Online systems',
     primary: 'Main navigation',
     fullMenu: 'All sections of the website',
