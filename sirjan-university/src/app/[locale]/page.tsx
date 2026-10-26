@@ -1,10 +1,13 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import type { Metadata } from 'next';
 import { AnnouncementItem } from '@/components/content/AnnouncementItem';
 import { CalendarItem } from '@/components/content/CalendarItem';
 import { LinkCard } from '@/components/content/LinkCard';
 import { NewsCard } from '@/components/content/NewsCard';
+import { AdmissionsBanner } from '@/components/home/AdmissionsBanner';
 import { CtaBand } from '@/components/home/CtaBand';
-import { HeroSlider } from '@/components/home/HeroSlider';
+import { Hero } from '@/components/home/Hero';
 import { QuickAccess } from '@/components/home/QuickAccess';
 import { StatsBand } from '@/components/home/StatsBand';
 import { GalleryGrid } from '@/components/media/GalleryGrid';
@@ -22,6 +25,14 @@ import { localizedPath } from '@/i18n/path';
 import { pageMetadata } from '@/lib/seo';
 
 type Props = { params: Promise<{ locale: Locale }> };
+
+/**
+ * Official campus photo. Drop the file at public/images/hero-campus.jpg and the hero and
+ * admissions banner use it automatically (checked at build time); otherwise they fall back to
+ * the labelled illustrative artwork.
+ */
+const CAMPUS_PHOTO = '/images/hero-campus.jpg';
+const hasCampusPhoto = existsSync(join(process.cwd(), 'public', CAMPUS_PHOTO));
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -44,7 +55,10 @@ export default async function HomePage({ params }: Props) {
     <>
       <h1 className="sr-only">{dict.brand.name}</h1>
       {/* 1 — Hero */}
-      <HeroSlider slides={heroSlides} />
+      <Hero
+        slides={heroSlides}
+        photo={hasCampusPhoto ? { src: CAMPUS_PHOTO, alt: dict.brand.name } : undefined}
+      />
 
       {/* 2 — Statistics */}
       <StatsBand locale={locale} />
@@ -53,11 +67,11 @@ export default async function HomePage({ params }: Props) {
       <QuickAccess locale={locale} />
 
       {/* 4 — Admissions CTA */}
-      <CtaBand
+      <AdmissionsBanner
         id="admissions-cta"
-        eyebrow={dict.home.admissionsEyebrow}
         title={dict.home.admissionsTitle}
         body={dict.home.admissionsBody}
+        image={hasCampusPhoto ? CAMPUS_PHOTO : '/illustrations/campus.svg'}
         primary={{ href: lp('/admissions'), label: dict.home.admissionsPrimary }}
         secondary={{ href: lp('/programs'), label: dict.home.admissionsSecondary }}
       />
@@ -66,7 +80,7 @@ export default async function HomePage({ params }: Props) {
       <section aria-labelledby="announcements-title" className="section pt-0">
         <div className="container-site">
           <SectionHeading id="announcements-title" title={dict.home.announcementsTitle} link={{ href: lp('/announcements'), label: dict.home.announcementsAll }} />
-          <ul className="grid gap-3 lg:grid-cols-2">
+          <ul data-reveal className="grid gap-3 lg:grid-cols-2">
             {notices.map((item) => (
               <li key={item.slug}>
                 <AnnouncementItem item={item} locale={locale} />
@@ -91,7 +105,7 @@ export default async function HomePage({ params }: Props) {
       <section aria-labelledby="news-title" className="section border-y border-line bg-surface">
         <div className="container-site">
           <SectionHeading id="news-title" title={dict.home.newsTitle} link={{ href: lp('/news'), label: dict.home.newsAll }} />
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <ul data-reveal className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {featuredNews.map((item) => (
               <li key={item.slug}>
                 <NewsCard item={item} locale={locale} />
@@ -110,7 +124,7 @@ export default async function HomePage({ params }: Props) {
             link={{ href: lp('/calendar'), label: dict.home.calendarAll }}
             aside={<ProvenanceBadge provenance="sample" locale={locale} />}
           />
-          <ol className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <ol data-reveal className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {calendarPreview.map((event) => (
               <CalendarItem key={event.id} event={event} locale={locale} compact />
             ))}
@@ -122,7 +136,7 @@ export default async function HomePage({ params }: Props) {
       <section aria-labelledby="systems-title" className="section border-y border-line bg-surface">
         <div className="container-site">
           <SectionHeading id="systems-title" title={dict.home.systemsTitle} intro={dict.home.systemsIntro} link={{ href: lp('/systems'), label: dict.common.viewAll }} />
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul data-reveal className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {systems.map((link) => (
               <li key={link.id}>
                 <LinkCard link={link} locale={locale} />
@@ -136,7 +150,9 @@ export default async function HomePage({ params }: Props) {
       <section aria-labelledby="gallery-title" className="section">
         <div className="container-site">
           <SectionHeading id="gallery-title" title={dict.home.galleryTitle} link={{ href: lp('/media#galleries'), label: dict.home.galleryAll }} />
-          <GalleryGrid images={galleryImages} columns="sm:grid-cols-4" featureFirst />
+          <div data-reveal>
+            <GalleryGrid images={galleryImages} columns="sm:grid-cols-4" featureFirst />
+          </div>
         </div>
       </section>
 
@@ -144,7 +160,7 @@ export default async function HomePage({ params }: Props) {
       <section aria-labelledby="portals-title" className="section border-t border-line bg-brand-50/60">
         <div className="container-site">
           <SectionHeading id="portals-title" title={dict.home.portalsTitle} intro={dict.home.portalsIntro} />
-          <div className="grid gap-8 lg:grid-cols-3">
+          <div data-reveal className="grid gap-8 lg:grid-cols-3">
             {Object.entries(portalCategories).map(([key, label]) => (
               <div key={key}>
                 <h3 className="mb-3 text-caption font-bold text-muted">{label[locale]}</h3>

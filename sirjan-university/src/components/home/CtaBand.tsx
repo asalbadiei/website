@@ -28,8 +28,9 @@ export function CtaBand({
     <section aria-labelledby={id} className={cn('section', !dark && 'pt-0')}>
       <div className="container-site">
         <div
+          data-reveal
           className={cn(
-            'relative grid gap-8 overflow-hidden rounded-[var(--radius-lg)] p-7 sm:p-10 lg:grid-cols-12 lg:items-center lg:p-14',
+            'relative grid gap-8 overflow-hidden rounded-[var(--radius-xl)] p-7 sm:p-10 lg:grid-cols-12 lg:items-center lg:p-14',
             dark ? 'bg-navy text-white' : 'border border-brand-100 bg-brand-50 text-ink',
           )}
         >

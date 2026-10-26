@@ -5,35 +5,42 @@
    Initial institutional palette; replace with official brand values when supplied.
    --------------------------------------------------------------------------- */
 @theme {
-  --color-navy: #12345a;
-  --color-navy-900: #0b2340;
-  --color-brand: #155aa8;
-  --color-brand-600: #124d91;
-  --color-brand-2: #2878c8;
-  --color-brand-50: #f1f6fc;
-  --color-brand-100: #dce8f6;
+  /* Brand palette (blue family supplied by the design, plus a sharp red for details). */
+  --color-navy: #0f2668;
+  --color-navy-900: #0a1a4a;
+  --color-brand: #1c44b0;
+  --color-brand-600: #16388f;
+  --color-brand-2: #6791ff;
+  --color-brand-50: #ebf0ff;
+  --color-brand-100: #d6e1ff;
+  --color-brand-200: #a7bfff;
   --color-surface: #ffffff;
-  --color-canvas: #f7f9fc;
-  --color-ink: #182638;
-  --color-ink-2: #3c4b5f;
-  --color-muted: #5b6b80; /* #64748B fails AA on #F7F9FC for small text; darkened slightly */
-  --color-line: #e2e8f0;
-  --color-line-strong: #cbd5e1;
-  --color-accent: #c62836;
-  --color-accent-50: #fdf1f2;
-  --color-success: #16805d;
-  --color-success-50: #ecf7f2;
-  --color-warning: #8a5a12; /* #B7791F darkened for AA text contrast */
+  --color-canvas: #f4f7ff;
+  --color-ink: #121c3d;
+  --color-ink-2: #39466b;
+  --color-muted: #5a6687;
+  --color-line: #e3e9f7;
+  --color-line-strong: #c9d4ee;
+  --color-accent: #e5383b;
+  --color-accent-50: #fdeeee;
+  --color-accent-ink: #c8232a; /* red for text and filled buttons (AA contrast) */
+  --color-success: #12805c;
+  --color-success-50: #e9f7f1;
+  --color-warning: #8a5a12;
   --color-warning-50: #fdf6e9;
 
   --font-sans: var(--font-active), system-ui, sans-serif;
 
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --radius-hero: 44px;
 
-  --shadow-card: 0 1px 2px rgb(18 52 90 / 0.06), 0 1px 1px rgb(18 52 90 / 0.04);
-  --shadow-raised: 0 10px 30px -12px rgb(18 52 90 / 0.25);
+  --shadow-card: 0 1px 2px rgb(28 68 176 / 0.04), 0 2px 8px -2px rgb(28 68 176 / 0.06);
+  --shadow-raised: 0 18px 40px -18px rgb(28 68 176 / 0.35);
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Type scale */
   --text-display: clamp(1.875rem, 1.2rem + 2.4vw, 3rem);
@@ -52,7 +59,7 @@
 
 :root {
   --font-active: var(--font-vazirmatn), Tahoma, sans-serif;
-  --header-h: 72px;
+  --header-h: 84px;
   color-scheme: light;
 }
 
@@ -140,13 +147,30 @@ html[lang='en'] body {
 
   .card-link {
     transition:
-      border-color 150ms ease,
-      box-shadow 150ms ease,
-      transform 150ms ease;
+      border-color 300ms var(--ease-soft),
+      box-shadow 300ms var(--ease-soft),
+      transform 300ms var(--ease-soft);
   }
   .card-link:hover {
-    border-color: var(--color-brand-100);
+    border-color: var(--color-brand-200);
     box-shadow: var(--shadow-raised);
+    transform: translateY(-3px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-link:hover {
+      transform: none;
+    }
+  }
+
+  /* A short red rule used as a detail accent above headings. */
+  .accent-rule::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 3px;
+    margin-bottom: 12px;
+    border-radius: 3px;
+    background: var(--color-accent);
   }
 
   .prose-site p {
@@ -210,4 +234,39 @@ html[lang='en'] body {
 /* Lock page scroll while a modal dialog is open. */
 html:has(dialog[open]) {
   overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll reveal: elements with [data-reveal] fade and rise into place once.
+   Only applied when JavaScript runs (html.js), so content is never hidden without it.
+   --------------------------------------------------------------------------- */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 700ms var(--ease-soft),
+    transform 700ms var(--ease-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+html.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Inverted rounded corner used where the hero's date notch meets the card. The page colour
+   fills the corner nearest the notch; the card shows through the quarter circle. */
+.hero-notch-corner {
+  width: var(--notch-r, 34px);
+  height: var(--notch-r, 34px);
+  background: radial-gradient(circle at 0% 100%, transparent calc(var(--notch-r, 34px) - 0.5px), var(--color-canvas) var(--notch-r, 34px));
+}
+[dir='rtl'] .hero-notch-corner {
+  background: radial-gradient(circle at 100% 100%, transparent calc(var(--notch-r, 34px) - 0.5px), var(--color-canvas) var(--notch-r, 34px));
 }

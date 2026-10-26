@@ -55,7 +55,7 @@ export function ContactForm() {
         </label>
         {multiline ? <textarea {...props} required aria-required /> : <input {...props} type={type} required aria-required dir={type === 'email' ? 'ltr' : undefined} />}
         {err ? (
-          <p id={`${id}-${field}-err`} className="mt-1 text-sm text-accent">
+          <p id={`${id}-${field}-err`} className="mt-1 text-sm text-accent-ink">
             {err}
           </p>
         ) : null}

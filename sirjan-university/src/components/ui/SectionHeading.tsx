@@ -17,9 +17,9 @@ export function SectionHeading({
   aside?: ReactNode;
 }) {
   return (
-    <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <div data-reveal className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div className="max-w-2xl">
-        <h2 id={id} className="text-h2 font-bold text-navy">
+        <h2 id={id} className="accent-rule text-h2 font-extrabold text-navy">
           {title}
         </h2>
         {intro ? <p className="mt-2 text-muted">{intro}</p> : null}

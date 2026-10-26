@@ -6,7 +6,7 @@ type Tone = 'neutral' | 'brand' | 'accent' | 'success' | 'warning' | 'outline';
 const tones: Record<Tone, string> = {
   neutral: 'bg-canvas text-ink-2 border-line',
   brand: 'bg-brand-50 text-brand-600 border-brand-100',
-  accent: 'bg-accent-50 text-accent border-[#f5c9cd]',
+  accent: 'bg-accent-50 text-accent-ink border-[#f5c9cd]',
   success: 'bg-success-50 text-success border-[#bfe3d3]',
   warning: 'bg-warning-50 text-warning border-[#f0dcb4]',
   outline: 'bg-transparent text-muted border-line-strong',
