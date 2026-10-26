@@ -51,8 +51,8 @@ serves RTL and LTR. Icons that point "forward" are drawn for LTR and mirrored in
 | Area | Components |
 | --- | --- |
 | UI primitives | `Button`/`ButtonLink`, `Badge`, `ProvenanceBadge`, `SampleNotice`, `EmptyState`, `Skeleton`, `SectionHeading`, `Dialog`, `Icon` |
-| Layout | `Header` (hamburger, emblem, search, `LanguageMenu`), `MenuDrawer` (all navigation), `SearchOverlay`, `LanguageSwitcher`, `Breadcrumbs`, `Footer`, `BackToTop` |
-| Content | `PageHeader`, `NewsCard`, `AnnouncementItem`, `FacultyCard`, `ProgramCard`, `CalendarItem`, `DocumentRow`, `PersonCard`, `LinkCard`, `ImageFrame`, `Attachments`, `FaqList`, `SideNav`, `UnitPage`, `UnitGrid`, `AboutShell` |
+| Layout | `Header` (hamburger, emblem, search, `LanguageMenu`), `MenuDrawer` (all navigation; slides in from the reading-start edge, collapsible sections), `SearchOverlay`, `LanguageSwitcher`, `Breadcrumbs`, `Footer`, `BackToTop` |
+| Content | `PageHeader`, `NewsCard`, `AnnouncementItem`, `FacultyCard`, `ProgramCard`, `CalendarItem`, `CalendarTimeline` (red wave with hexagon nodes; vertical on small screens), `DocumentRow`, `PersonCard`, `LinkCard`, `ImageFrame`, `Attachments`, `FaqList`, `SideNav`, `UnitPage`, `UnitGrid`, `AboutShell` |
 | Listings | `NewsArchive`, `AnnouncementArchive`, `ProgramDirectory`, `DocumentLibrary`, `PeopleDirectory`, `PublicationArchive`, `SearchPageClient`, shared `controls` (search field, selects, chips, pagination, URL state) |
 | Home | `HeroSlider`, `StatsBand`, `QuickAccess`, `CtaBand` |
 | Media | `GalleryGrid` (with lightbox) |

@@ -72,6 +72,7 @@ const fa = {
     status: 'وضعیت',
   },
   nav: {
+    submenu: 'زیرمنوی {name}',
     systems: 'سامانه‌ها',
     primary: 'ناوبری اصلی',
     fullMenu: 'همه بخش‌های وب‌سایت',

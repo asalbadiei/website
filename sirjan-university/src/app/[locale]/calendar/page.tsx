@@ -1,4 +1,5 @@
 import { CalendarItem } from '@/components/content/CalendarItem';
+import { CalendarTimeline } from '@/components/content/CalendarTimeline';
 import { PageHeader } from '@/components/content/PageHeader';
 import { SampleNotice } from '@/components/ui/Provenance';
 import { calendarEvents } from '@/content/calendar';
@@ -28,7 +29,7 @@ export default async function CalendarPage({ params }: LocaleParams) {
   return (
     <>
       <PageHeader locale={locale} crumbs={[{ label: d.home.calendarTitle }]} title={d.home.calendarTitle} intro={intro[locale]} />
-      <div className="container-site max-w-5xl space-y-10 py-10 lg:py-14">
+      <div className="container-site space-y-12 py-10 lg:py-14">
         <SampleNotice locale={locale}>{note[locale]}</SampleNotice>
         <nav aria-label={d.common.onThisPage} className="flex flex-wrap gap-2">
           {terms.map((term, i) => (
@@ -39,9 +40,12 @@ export default async function CalendarPage({ params }: LocaleParams) {
         </nav>
         {terms.map((term, i) => (
           <section key={term.en} aria-labelledby={`term-${i}`}>
-            <h2 id={`term-${i}`} className="mb-4 text-h2 font-bold text-navy">
+            <h2 id={`term-${i}`} className="accent-rule mb-4 text-h2 font-extrabold text-navy">
               {term[locale]}
             </h2>
+            <div className="mb-10 rounded-[var(--radius-xl)] border border-line bg-surface px-5 py-8 lg:px-8 lg:py-4">
+              <CalendarTimeline events={calendarEvents.filter((e) => e.term.en === term.en)} locale={locale} label={term[locale]} />
+            </div>
             <ol className="space-y-3">
               {calendarEvents
                 .filter((e) => e.term.en === term.en)
