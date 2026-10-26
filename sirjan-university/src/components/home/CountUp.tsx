@@ -23,9 +23,11 @@ export function CountUp({ value, suffix = '' }: { value: number; suffix?: string
     setCurrent(0);
     let frame = 0;
     const run = () => {
-      const start = performance.now();
+      // Start from the first frame's own timestamp: rAF times can precede performance.now().
+      let start: number | null = null;
       const tick = (now: number) => {
-        const t = Math.min(1, (now - start) / DURATION);
+        start ??= now;
+        const t = Math.min(1, Math.max(0, (now - start) / DURATION));
         setCurrent(Math.round(easeOutExpo(t) * value));
         if (t < 1) frame = requestAnimationFrame(tick);
       };

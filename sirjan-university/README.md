@@ -47,9 +47,9 @@ static; only unknown URLs render on demand (to return the localized 404 page).
 - **Homepage** in the specified order: hero slider → statistics → quick-access cards → admissions
   CTA → announcements → student-services CTA → news and events → academic calendar → related
   systems → image gallery → related portals → footer.
-- **Navigation**: desktop mega-menu (click, arrow keys, Escape returns focus, click outside),
-  a full-site menu panel that becomes an accordion drawer on mobile, breadcrumbs with structured
-  data, and active-page states.
+- **Navigation**: the header stays minimal (hamburger, emblem, search, language menu); every
+  section lives in the hamburger menu, a full-site panel on desktop that becomes an accordion
+  drawer on mobile. Breadcrumbs with structured data and active-page states.
 - **Search**: overlay (also opened with `/`) and a `/search` page over news, announcements,
   faculties, academic groups, programmes, people, offices, forms and pages. The index is a static
   JSON file per locale (`/api/search/fa`, `/api/search/en`), loaded only when search opens.
@@ -95,7 +95,7 @@ src/
   app/sitemap.ts, robots.ts
   components/
     layout/            header, footer, logo, language switcher, breadcrumbs
-    navigation/        mega-menu, drawer, search overlay
+    navigation/        menu drawer, search overlay
     home/              hero slider, stats, quick access, CTA band
     content/           cards, page header, unit template, FAQ, file actions
     listing/           client-side filterable listings + shared controls

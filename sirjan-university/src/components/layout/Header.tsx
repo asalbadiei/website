@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
 import { useLocale } from '@/i18n/client';
 import { localizedPath } from '@/i18n/path';
-import { MegaMenu } from '@/components/navigation/MegaMenu';
 import { MenuDrawer } from '@/components/navigation/MenuDrawer';
 import { SearchOverlay } from '@/components/navigation/SearchOverlay';
 import { cn } from '@/lib/format';
@@ -52,7 +51,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
-              className="group grid size-11 shrink-0 place-items-center rounded-full transition-colors duration-300 hover:bg-brand-50"
+              className="group inline-flex h-11 shrink-0 items-center gap-2.5 rounded-full px-2.5 transition-colors duration-300 hover:bg-brand-50"
               aria-label={dict.common.openMenu}
               aria-haspopup="dialog"
               aria-expanded={menuOpen}
@@ -61,10 +60,13 @@ export function Header() {
                 <span className="h-0.5 w-full rounded-full bg-navy transition-colors group-hover:bg-brand" />
                 <span className="h-0.5 w-2/3 rounded-full bg-navy transition-all duration-300 group-hover:w-full group-hover:bg-brand" />
               </span>
+              <span aria-hidden="true" className="hidden text-sm font-bold text-navy transition-colors group-hover:text-brand lg:inline">
+                {dict.common.menu}
+              </span>
             </button>
             <Link href={localizedPath(locale, '/')} className="flex min-w-0 items-center gap-3" aria-label={`${dict.brand.name} — ${dict.common.home}`}>
               <Emblem className="size-12 shrink-0 transition-transform duration-500 hover:scale-105" />
-              <span className="hidden min-w-0 leading-tight md:block xl:hidden 2xl:block">
+              <span className="hidden min-w-0 leading-tight sm:block">
                 <span className="block truncate text-[0.95rem] font-extrabold text-navy">{dict.brand.shortName}</span>
                 <span lang={locale === 'fa' ? 'en' : 'fa'} className="block truncate text-xs text-muted">
                   {dict.brand.altName}
@@ -72,8 +74,6 @@ export function Header() {
               </span>
             </Link>
           </div>
-
-          <MegaMenu />
 
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <button
