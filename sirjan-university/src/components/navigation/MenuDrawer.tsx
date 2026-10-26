@@ -31,6 +31,7 @@ export function MenuDrawer({ open, onClose }: { open: boolean; onClose: () => vo
       open={open}
       onClose={onClose}
       labelledBy={titleId}
+      keepMounted
       className="fixed inset-y-0 end-0 start-auto h-dvh w-full max-w-[min(100vw,1100px)] sm:w-[440px] lg:w-[1100px]"
     >
       <div className="flex h-full flex-col bg-surface shadow-[var(--shadow-raised)]">

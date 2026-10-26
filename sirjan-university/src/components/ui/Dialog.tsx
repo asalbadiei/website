@@ -14,9 +14,12 @@ export function Dialog({
   labelledBy,
   label,
   className,
+  keepMounted = false,
   children,
 }: {
   open: boolean;
+  /** Keep children in the DOM while closed (a closed <dialog> is hidden), e.g. so menu links stay crawlable. */
+  keepMounted?: boolean;
   onClose: () => void;
   labelledBy?: string;
   label?: string;
@@ -50,7 +53,7 @@ export function Dialog({
       }}
       className={cn('m-0 max-h-none max-w-none bg-transparent p-0 backdrop:bg-navy-900/55 backdrop:backdrop-blur-[2px]', className)}
     >
-      {open ? children : null}
+      {open || keepMounted ? children : null}
     </dialog>
   );
 }

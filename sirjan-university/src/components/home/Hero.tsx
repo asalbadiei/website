@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
-import { ArrowUpRight, Pause, Play } from 'lucide-react';
+import { ArrowUpRight, CalendarDays, Pause, Play } from 'lucide-react';
 import { useLocale } from '@/i18n/client';
 import { fill } from '@/i18n';
 import { localizedPath } from '@/i18n/path';
-import { cn, formatNumber, formatWeekdayDate } from '@/lib/format';
+import { cn, formatDate, formatNumber } from '@/lib/format';
 import { useClientValue, usePrefersReducedMotion } from '@/lib/use-client-value';
 import type { HeroSlide } from '@/content/home';
 
@@ -24,7 +24,11 @@ export function Hero({ slides, photo }: { slides: HeroSlide[]; photo?: { src: st
   // null until the visitor presses play/pause; reduced-motion visitors start paused but may still play.
   const [choice, setChoice] = useState<boolean | null>(null);
   const [paused, setPaused] = useState(false);
-  const today = useClientValue(() => formatWeekdayDate(new Date(), locale), '');
+  const todayDate = useClientValue(() => formatDate(new Date(), locale), '');
+  const todayWeekday = useClientValue(
+    () => new Intl.DateTimeFormat(locale === 'fa' ? 'fa-IR' : 'en-GB', { weekday: 'long', timeZone: 'Asia/Tehran' }).format(new Date()),
+    '',
+  );
   const regionRef = useRef<HTMLElement>(null);
   const playing = choice ?? !reduceMotion;
 
@@ -37,7 +41,7 @@ export function Hero({ slides, photo }: { slides: HeroSlide[]; photo?: { src: st
   }, [playing, paused, index, go, slides.length]);
 
   // Inverted-corner pieces that round the notch into the card (see globals.css .hero-notch-corner).
-  const notch = { '--notch-r': '34px' } as CSSProperties;
+  const notch = { '--notch-r': '40px' } as CSSProperties;
 
   return (
     <section
@@ -128,10 +132,16 @@ export function Hero({ slides, photo }: { slides: HeroSlide[]; photo?: { src: st
         </div>
 
         {/* Notch holding today's date */}
-        <div className="absolute end-0 top-0 z-20 flex h-[58px] w-[170px] items-center justify-center rounded-es-[var(--notch-r)] bg-canvas sm:h-[78px] sm:w-[260px]">
-          <p className="text-center text-xs font-bold text-navy sm:text-sm">
-            <span className="sr-only">{dict.common.today}: </span>
-            <span>{today || ' '}</span>
+        <div className="absolute end-0 top-0 z-20 flex h-[76px] w-[200px] items-center justify-center rounded-es-[var(--notch-r)] bg-canvas sm:h-[104px] sm:w-[330px]">
+          <p className="flex items-center gap-3 text-navy">
+            <span aria-hidden="true" className="hidden size-11 shrink-0 place-items-center rounded-full bg-brand-50 text-brand sm:grid">
+              <CalendarDays size={22} strokeWidth={1.75} />
+            </span>
+            <span className="leading-tight">
+              <span className="sr-only">{dict.common.today}: </span>
+              <span className="block text-xs font-semibold text-muted sm:text-sm">{todayWeekday || '\u00a0'}</span>
+              <span className="block text-lg font-black sm:text-[1.625rem]">{todayDate || '\u00a0'}</span>
+            </span>
           </p>
           <span aria-hidden="true" className="hero-notch-corner absolute end-full top-0" />
           <span aria-hidden="true" className="hero-notch-corner absolute end-0 top-full" />

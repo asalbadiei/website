@@ -51,7 +51,7 @@ serves RTL and LTR. Icons that point "forward" are drawn for LTR and mirrored in
 | Area | Components |
 | --- | --- |
 | UI primitives | `Button`/`ButtonLink`, `Badge`, `ProvenanceBadge`, `SampleNotice`, `EmptyState`, `Skeleton`, `SectionHeading`, `Dialog`, `Icon` |
-| Layout | `Header`, `MegaMenu`, `MenuDrawer`, `SearchOverlay`, `LanguageSwitcher`, `HeaderDate`, `Breadcrumbs`, `Footer`, `BackToTop` |
+| Layout | `Header` (hamburger, emblem, search, `LanguageMenu`), `MenuDrawer` (all navigation), `SearchOverlay`, `LanguageSwitcher`, `Breadcrumbs`, `Footer`, `BackToTop` |
 | Content | `PageHeader`, `NewsCard`, `AnnouncementItem`, `FacultyCard`, `ProgramCard`, `CalendarItem`, `DocumentRow`, `PersonCard`, `LinkCard`, `ImageFrame`, `Attachments`, `FaqList`, `SideNav`, `UnitPage`, `UnitGrid`, `AboutShell` |
 | Listings | `NewsArchive`, `AnnouncementArchive`, `ProgramDirectory`, `DocumentLibrary`, `PeopleDirectory`, `PublicationArchive`, `SearchPageClient`, shared `controls` (search field, selects, chips, pagination, URL state) |
 | Home | `HeroSlider`, `StatsBand`, `QuickAccess`, `CtaBand` |
