@@ -1,3 +1,5 @@
+> **Also in this repository:** [`sirjan-university/`](sirjan-university/README.md) is a separate, self-contained Next.js app — the bilingual website for Islamic Azad University, Sirjan Branch. It has its own dependencies (`cd sirjan-university && pnpm install && pnpm dev`) and is ignored by this project's ESLint.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

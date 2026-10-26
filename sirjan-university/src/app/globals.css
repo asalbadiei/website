@@ -1,0 +1,213 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens — see docs/DESIGN-SYSTEM.md
+   Initial institutional palette; replace with official brand values when supplied.
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-navy: #12345a;
+  --color-navy-900: #0b2340;
+  --color-brand: #155aa8;
+  --color-brand-600: #124d91;
+  --color-brand-2: #2878c8;
+  --color-brand-50: #f1f6fc;
+  --color-brand-100: #dce8f6;
+  --color-surface: #ffffff;
+  --color-canvas: #f7f9fc;
+  --color-ink: #182638;
+  --color-ink-2: #3c4b5f;
+  --color-muted: #5b6b80; /* #64748B fails AA on #F7F9FC for small text; darkened slightly */
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+  --color-accent: #c62836;
+  --color-accent-50: #fdf1f2;
+  --color-success: #16805d;
+  --color-success-50: #ecf7f2;
+  --color-warning: #8a5a12; /* #B7791F darkened for AA text contrast */
+  --color-warning-50: #fdf6e9;
+
+  --font-sans: var(--font-active), system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  --shadow-card: 0 1px 2px rgb(18 52 90 / 0.06), 0 1px 1px rgb(18 52 90 / 0.04);
+  --shadow-raised: 0 10px 30px -12px rgb(18 52 90 / 0.25);
+
+  /* Type scale */
+  --text-display: clamp(1.875rem, 1.2rem + 2.4vw, 3rem);
+  --text-display--line-height: 1.25;
+  --text-h1: clamp(1.625rem, 1.2rem + 1.5vw, 2.375rem);
+  --text-h1--line-height: 1.3;
+  --text-h2: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);
+  --text-h2--line-height: 1.35;
+  --text-h3: 1.125rem;
+  --text-h3--line-height: 1.55;
+  --text-body: 1rem;
+  --text-body--line-height: 1.85;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.6;
+}
+
+:root {
+  --font-active: var(--font-vazirmatn), Tahoma, sans-serif;
+  --header-h: 72px;
+  color-scheme: light;
+}
+
+html[lang='en'] {
+  --font-active: var(--font-inter), 'Segoe UI', Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.85;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[lang='en'] body {
+  line-height: 1.7;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand-2);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-brand-100);
+  color: var(--color-navy);
+}
+
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: 1360px;
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+  @media (min-width: 640px) {
+    .container-site {
+      padding-inline: 24px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-site {
+      padding-inline: 32px;
+    }
+  }
+
+  .section {
+    padding-block: 56px;
+  }
+  @media (min-width: 1024px) {
+    .section {
+      padding-block: 80px;
+    }
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-link {
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      transform 150ms ease;
+  }
+  .card-link:hover {
+    border-color: var(--color-brand-100);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .prose-site p {
+    margin-block: 0 1.1em;
+    color: var(--color-ink-2);
+  }
+  .prose-site h2 {
+    font-size: var(--text-h2);
+    line-height: 1.4;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-block: 1.6em 0.6em;
+  }
+  .prose-site ul {
+    list-style: disc;
+    padding-inline-start: 1.25em;
+    margin-block: 0 1.1em;
+    color: var(--color-ink-2);
+  }
+  .prose-site li + li {
+    margin-top: 0.35em;
+  }
+
+  .eyebrow {
+    font-size: var(--text-caption);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-brand);
+  }
+  html[lang='en'] .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Icons that point "forward" in reading order mirror in RTL. */
+  [dir='rtl'] .flip-rtl {
+    transform: scaleX(-1);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Lock page scroll while a modal dialog is open. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
