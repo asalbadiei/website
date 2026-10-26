@@ -16,8 +16,8 @@ export type HeroSlide = {
 export const heroSlides: HeroSlide[] = [
   {
     id: 'welcome',
-    eyebrow: l('دانشگاه آزاد اسلامی واحد سیرجان', 'Islamic Azad University, Sirjan Branch'),
-    title: l('آموزش باکیفیت، پژوهش کاربردی و خدمت به جامعه', 'Quality education, applied research and service to society'),
+    eyebrow: l('با مجموعه‌ای از بهترین و مجرب‌ترین استادان', 'Home to experienced, dedicated faculty'),
+    title: l('دانشگاه آزاد اسلامی سیرجان', 'Islamic Azad University, Sirjan'),
     body: l('با دانشکده‌ها، رشته‌های تحصیلی و خدمات دانشگاه در یک درگاه یکپارچه آشنا شوید.', 'Explore the university’s faculties, programmes and services in one place.'),
     image: im('campus', 'تصویر نمادین پردیس دانشگاه', 'Illustration of the university campus'),
     primary: { label: l('درباره دانشگاه', 'About the university'), href: '/about' },

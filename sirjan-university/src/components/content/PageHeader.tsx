@@ -24,10 +24,10 @@ export function PageHeader({
     <div className="border-b border-line bg-surface">
       <div className="container-site py-8 lg:py-12">
         <Breadcrumbs locale={locale} items={crumbs} />
-        <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
+        <div data-reveal className="mt-6 flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-3xl">
             {eyebrow ? <p className="eyebrow mb-2">{eyebrow}</p> : null}
-            <h1 className="text-h1 font-bold text-navy">{title}</h1>
+            <h1 className="accent-rule text-h1 font-extrabold text-navy">{title}</h1>
             {intro ? <p className="mt-3 text-lg leading-8 text-ink-2">{intro}</p> : null}
             {meta ? <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-muted">{meta}</div> : null}
           </div>

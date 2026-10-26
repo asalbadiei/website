@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
+import { RevealObserver } from '@/components/motion/RevealObserver';
 import { siteUrl } from '@/content/site';
 import { LocaleProvider } from '@/i18n/client';
 import { isLocale, localeConfig, locales, type Locale } from '@/i18n/config';
@@ -17,7 +18,7 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#12345A',
+  themeColor: '#1C44B0',
   width: 'device-width',
   initialScale: 1,
 };
@@ -50,8 +51,10 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   };
 
   return (
-    <html lang={htmlLang} dir={dir} className={`${vazirmatn.variable} ${inter.variable}`}>
+    <html lang={htmlLang} dir={dir} className={`${vazirmatn.variable} ${inter.variable}`} suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col">
+        {/* Marks JS as available before first paint, so scroll-reveal never hides content without it. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <a
           href="#main"
           className="sr-only z-50 rounded-[var(--radius-md)] bg-brand px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:start-4 focus:top-4"
@@ -60,14 +63,13 @@ export default async function LocaleLayout({ children, params }: { children: Rea
         </a>
         <span id="top" tabIndex={-1} className="sr-only" />
         <LocaleProvider locale={locale} dict={dict}>
-          <div role="note" className="bg-warning-50 text-center text-xs text-warning">
-            <p className="container-site py-1.5">{dict.common.devBanner}</p>
-          </div>
+          <div aria-hidden="true" className="h-1 bg-gradient-to-l from-brand via-brand-2 to-brand-200" />
           <Header />
           <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
             {children}
           </main>
           <Footer locale={locale} />
+          <RevealObserver />
         </LocaleProvider>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
       </body>

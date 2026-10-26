@@ -136,9 +136,12 @@ export function Footer({ locale }: { locale: Locale }) {
 
       <div className="border-t border-white/10">
         <div className="container-site flex flex-col items-start justify-between gap-3 py-5 text-xs text-white/65 sm:flex-row sm:items-center">
-          <p>
-            © {year} — {dict.footer.rights}
-          </p>
+          <div className="space-y-1">
+            <p>
+              © {year} — {dict.footer.rights}
+            </p>
+            <p className="text-white/50">{dict.common.devBanner}</p>
+          </div>
           <div className="flex flex-wrap items-center gap-4">
             <Link href={localizedPath(locale, '/accessibility')} className="hover:text-white hover:underline">
               {dict.footer.accessibility}

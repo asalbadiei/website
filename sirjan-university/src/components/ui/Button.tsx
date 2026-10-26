@@ -12,7 +12,7 @@ const variants: Record<Variant, string> = {
   primary: 'bg-brand text-white hover:bg-brand-600',
   secondary: 'border border-line-strong bg-surface text-navy hover:border-brand hover:text-brand',
   ghost: 'text-brand hover:bg-brand-50',
-  accent: 'bg-accent text-white hover:bg-[#a8202d]',
+  accent: 'bg-accent-ink text-white hover:bg-[#a51c22]',
   inverse: 'bg-white text-navy hover:bg-brand-50',
   'inverse-outline': 'border border-white/50 text-white hover:bg-white/10',
 };

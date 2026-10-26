@@ -63,7 +63,7 @@ export function MegaMenu() {
   };
 
   return (
-    <nav ref={navRef} aria-label={dict.nav.primary} className="hidden lg:block">
+    <nav ref={navRef} aria-label={dict.nav.primary} className="hidden xl:block">
       <ul className="flex items-center gap-0.5">
         {navigation.map((group, index) => {
           const active = group.columns.some((c) => c.links.some((l) => isActivePath(pathname, localizedPath(locale, l.href.split(/[?#]/)[0]))));
@@ -80,9 +80,9 @@ export function MegaMenu() {
                 onClick={() => setOpen(expanded ? null : group.id)}
                 onKeyDown={(e) => onTriggerKey(e, index)}
                 className={cn(
-                  'relative inline-flex h-10 items-center gap-1 rounded-[var(--radius-md)] px-3 text-[0.9375rem] font-semibold transition-colors',
-                  expanded ? 'bg-brand-50 text-brand' : 'text-ink hover:bg-brand-50 hover:text-brand',
-                  active && !expanded && 'text-brand after:absolute after:inset-x-3 after:-bottom-[15px] after:h-0.5 after:bg-brand',
+                  'relative inline-flex h-10 items-center gap-1 rounded-full px-3 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors duration-300',
+                  expanded ? 'bg-brand-50 text-brand' : 'text-ink hover:text-brand',
+                  active && !expanded && 'text-brand after:absolute after:start-3 after:bottom-0.5 after:size-1.5 after:rounded-full after:bg-accent',
                 )}
               >
                 {group.label[locale]}
